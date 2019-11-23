@@ -39,6 +39,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5307AB83238924DC009BFADF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				53C24FF0238772D90005EE82 /* CoreDataModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5307AB85238924F9009BFADF /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				53C24FDE2386ECBD0005EE82 /* ViewController.swift */,
+				5307AB8723892574009BFADF /* Views */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		5307AB8623892507009BFADF /* StoryBoards */ = {
+			isa = PBXGroup;
+			children = (
+				53C24FE52386ECBF0005EE82 /* LaunchScreen.storyboard */,
+				53C24FE02386ECBD0005EE82 /* Main.storyboard */,
+			);
+			path = StoryBoards;
+			sourceTree = "<group>";
+		};
+		5307AB8723892574009BFADF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				53C24FF223879C810005EE82 /* CustomTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		53C24FD02386ECBD0005EE82 = {
 			isa = PBXGroup;
 			children = (
@@ -59,12 +93,10 @@
 			isa = PBXGroup;
 			children = (
 				53C24FDC2386ECBD0005EE82 /* AppDelegate.swift */,
-				53C24FDE2386ECBD0005EE82 /* ViewController.swift */,
-				53C24FF223879C810005EE82 /* CustomTableViewCell.swift */,
-				53C24FF0238772D90005EE82 /* CoreDataModel.swift */,
-				53C24FE02386ECBD0005EE82 /* Main.storyboard */,
+				5307AB85238924F9009BFADF /* ViewControllers */,
+				5307AB83238924DC009BFADF /* Models */,
+				5307AB8623892507009BFADF /* StoryBoards */,
 				53C24FE32386ECBF0005EE82 /* Assets.xcassets */,
-				53C24FE52386ECBF0005EE82 /* LaunchScreen.storyboard */,
 				53C24FE82386ECBF0005EE82 /* Info.plist */,
 			);
 			path = DataParsingExample;
