@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5307AB8B238926D3009BFADF /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5307AB8A238926D3009BFADF /* ServiceManager.swift */; };
 		53C24FDD2386ECBD0005EE82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C24FDC2386ECBD0005EE82 /* AppDelegate.swift */; };
 		53C24FDF2386ECBD0005EE82 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C24FDE2386ECBD0005EE82 /* ViewController.swift */; };
 		53C24FE22386ECBD0005EE82 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53C24FE02386ECBD0005EE82 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5307AB8A238926D3009BFADF /* ServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceManager.swift; sourceTree = "<group>"; };
 		53C24FD92386ECBD0005EE82 /* DataParsingExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DataParsingExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53C24FDC2386ECBD0005EE82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		53C24FDE2386ECBD0005EE82 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -51,7 +53,6 @@
 			isa = PBXGroup;
 			children = (
 				53C24FDE2386ECBD0005EE82 /* ViewController.swift */,
-				5307AB8723892574009BFADF /* Views */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -71,6 +72,22 @@
 				53C24FF223879C810005EE82 /* CustomTableViewCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		5307AB882389263A009BFADF /* CustomLibraries */ = {
+			isa = PBXGroup;
+			children = (
+				5307AB89238926A0009BFADF /* ServiceManager */,
+			);
+			path = CustomLibraries;
+			sourceTree = "<group>";
+		};
+		5307AB89238926A0009BFADF /* ServiceManager */ = {
+			isa = PBXGroup;
+			children = (
+				5307AB8A238926D3009BFADF /* ServiceManager.swift */,
+			);
+			path = ServiceManager;
 			sourceTree = "<group>";
 		};
 		53C24FD02386ECBD0005EE82 = {
@@ -94,7 +111,9 @@
 			children = (
 				53C24FDC2386ECBD0005EE82 /* AppDelegate.swift */,
 				5307AB85238924F9009BFADF /* ViewControllers */,
+				5307AB8723892574009BFADF /* Views */,
 				5307AB83238924DC009BFADF /* Models */,
+				5307AB882389263A009BFADF /* CustomLibraries */,
 				5307AB8623892507009BFADF /* StoryBoards */,
 				53C24FE32386ECBF0005EE82 /* Assets.xcassets */,
 				53C24FE82386ECBF0005EE82 /* Info.plist */,
@@ -177,6 +196,7 @@
 				53C24FDF2386ECBD0005EE82 /* ViewController.swift in Sources */,
 				53C24FF323879C810005EE82 /* CustomTableViewCell.swift in Sources */,
 				53C24FDD2386ECBD0005EE82 /* AppDelegate.swift in Sources */,
+				5307AB8B238926D3009BFADF /* ServiceManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

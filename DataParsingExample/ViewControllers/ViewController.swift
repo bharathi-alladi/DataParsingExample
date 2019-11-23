@@ -41,27 +41,21 @@ class ViewController: UIViewController , UITableViewDataSource, UITableViewDeleg
             }
             else {
                 // show an alert here
+                let alertController = UIAlertController.init(title: "Error", message: error?.localizedDescription ?? "Unknown Error", preferredStyle: .alert)
+                let alertAction = UIAlertAction.init(title: "ok", style: .default, handler: nil)
+                alertController.addAction(alertAction)
+                self.present(alertController, animated: true, completion: nil)
             }
             
             
         }
         self.activityIndicator.startAnimating()
-        self.getContactList()
+        
+        let serviceManager = ServiceManager.init()
+        serviceManager.getContactList(onSuccess: self.completionHandler!)
     }
     
-    func getContactList ()
-    {
-        
-        
-        let url = URL.init(string: "http://gojek-contacts-app.herokuapp.com/contacts.json")
-        let urlRequest = URLRequest.init(url: url!)
-
-        let defaultConfiq = URLSessionConfiguration.default
-        let urlSession = URLSession.init(configuration : defaultConfiq)
-
-        let dataTask = urlSession.dataTask (with: urlRequest, completionHandler: self.completionHandler!)
-        dataTask.resume()
-    }
+ 
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -71,16 +65,15 @@ class ViewController: UIViewController , UITableViewDataSource, UITableViewDeleg
         return fetchedData.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-        {
-            let cell: CustomTableViewCell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell") as! CustomTableViewCell
-    
-            let CoreDataModel = fetchedData[indexPath.row]
-            cell.firstNameLbl.text = CoreDataModel.first_name
-            cell.lastNameLbl.text = CoreDataModel.last_name
-    
-            return cell
-        }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: CustomTableViewCell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell") as! CustomTableViewCell
+        
+        let CoreDataModel = fetchedData[indexPath.row]
+        cell.firstNameLbl.text = CoreDataModel.first_name
+        cell.lastNameLbl.text = CoreDataModel.last_name
+        
+        return cell
+    }
 }
 
 
