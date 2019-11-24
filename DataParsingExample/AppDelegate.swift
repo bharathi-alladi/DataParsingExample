@@ -19,11 +19,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let viewModel = ListViewModel.init()
         let intialView = ListViewController.initWithViewModel(viewModel)
         
+        let navigationController = UINavigationController.init(rootViewController: intialView)
+        
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = intialView
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
         return true
     }
+    
 
 }
 

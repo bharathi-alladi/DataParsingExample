@@ -28,7 +28,7 @@ class ListViewController: UIViewController , UITableViewDataSource, UITableViewD
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
+        self.title = "Contacts List"
         self.data_tableView.dataSource = self
         self.data_tableView.delegate = self
         
