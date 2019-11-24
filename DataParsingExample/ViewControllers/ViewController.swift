@@ -13,8 +13,17 @@ class ViewController: UIViewController , UITableViewDataSource, UITableViewDeleg
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var data_tableView : UITableView!
     
-    var completionHandler : ((Data?,URLResponse?,Error?) -> Void )?
-    var fetchedData : [CoreDataModel] = []
+    var viewModel: ListViewModel!
+    
+    // MARK: - init and viewDidLoad functions
+    class func initWithViewModel(_ viewModel: ListViewModel) -> ViewController {
+        
+        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
+        let vcObj = storyBoard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+        vcObj.viewModel = viewModel
+        vcObj.viewModel.viewController = vcObj
+        return vcObj
+    }
     
     override func viewDidLoad()
     {
@@ -22,55 +31,45 @@ class ViewController: UIViewController , UITableViewDataSource, UITableViewDeleg
         
         self.data_tableView.dataSource = self
         self.data_tableView.delegate = self
-       
-        self.completionHandler = {
-            (data : Data?, urlresponse : URLResponse?, error : Error? ) -> Void in
-            
-            if data != nil {
-                let decoder = JSONDecoder.init()
-                do {
-                    self.fetchedData =  try decoder.decode([CoreDataModel].self, from: data!)
-                } catch {
-                    print(error.localizedDescription)
-                    
-                }
-                DispatchQueue.main.async(execute: {() -> Void in
-                    self.activityIndicator.stopAnimating()
-                    self.data_tableView.reloadData()
-                })
-            }
-            else {
-                // show an alert here
-                let alertController = UIAlertController.init(title: "Error", message: error?.localizedDescription ?? "Unknown Error", preferredStyle: .alert)
-                let alertAction = UIAlertAction.init(title: "ok", style: .default, handler: nil)
-                alertController.addAction(alertAction)
-                self.present(alertController, animated: true, completion: nil)
-            }
-            
-            
-        }
-        self.activityIndicator.startAnimating()
         
-        let serviceManager = ServiceManager.init()
-        serviceManager.getContactList(onSuccess: self.completionHandler!)
+        self.activityIndicator.startAnimating()
+        self.viewModel.fetchData()
+    }
+    
+    // MARK: - custom functions
+    func reloadTableView() {
+        DispatchQueue.main.async(execute: {() -> Void in
+            self.activityIndicator.stopAnimating()
+            self.data_tableView.reloadData()
+        })
+    }
+    
+    func displayAlert(with error:Error?)  {
+        // show an alert here
+        DispatchQueue.main.async(execute: {() -> Void in
+            let alertController = UIAlertController.init(title: "Error", message: error?.localizedDescription ?? "Unknown Error", preferredStyle: .alert)
+            let alertAction = UIAlertAction.init(title: "ok", style: .default, handler: nil)
+            alertController.addAction(alertAction)
+            self.present(alertController, animated: true, completion: nil)
+        })
     }
     
  
-    
+    // MARK: - tableview datasource functions
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fetchedData.count
+        return viewModel.getRowCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: CustomTableViewCell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell") as! CustomTableViewCell
         
-        let CoreDataModel = fetchedData[indexPath.row]
-        cell.firstNameLbl.text = CoreDataModel.first_name
-        cell.lastNameLbl.text = CoreDataModel.last_name
+        let coreDataModel = self.viewModel.getContact(index: indexPath.row)
+        cell.firstNameLbl.text = coreDataModel.first_name
+        cell.lastNameLbl.text = coreDataModel.last_name
         
         return cell
     }
