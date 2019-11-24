@@ -13,7 +13,7 @@ class ListViewModel {
     var completionHandler : ((Data?,URLResponse?,Error?) -> Void )?
     var fetchedData : [CoreDataModel] = []
     
-    var viewController : ViewController?
+    var viewController : ListViewController?
     
     init() {
         self.completionHandler = {
@@ -30,7 +30,7 @@ class ListViewModel {
                 self.viewController?.reloadTableView()
             }
             else {
-                self.viewController?.displayAlert(with: error)
+                self.viewController?.displayAlert(with: error)// shows error when internet is turned off.
             }
         }
     }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController , UITableViewDataSource, UITableViewDelegate
+class ListViewController: UIViewController , UITableViewDataSource, UITableViewDelegate
 {
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var data_tableView : UITableView!
@@ -16,10 +16,10 @@ class ViewController: UIViewController , UITableViewDataSource, UITableViewDeleg
     var viewModel: ListViewModel!
     
     // MARK: - init and viewDidLoad functions
-    class func initWithViewModel(_ viewModel: ListViewModel) -> ViewController {
+    class func initWithViewModel(_ viewModel: ListViewModel) -> ListViewController {
         
         let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
-        let vcObj = storyBoard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+        let vcObj = storyBoard.instantiateViewController(withIdentifier: "ListViewController") as! ListViewController
         vcObj.viewModel = viewModel
         vcObj.viewModel.viewController = vcObj
         return vcObj
