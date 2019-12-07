@@ -13,7 +13,7 @@ class CoreDataModel : Codable {
     var id : Int!
     var first_name : String!
     var last_name : String!
-    var profilePicUrl : String!
-    var isFavorite : String!
-    var detailsUrl : String!
+    var profile_pic : String!
+    var favorite : Bool!
+    var url : String!
 }

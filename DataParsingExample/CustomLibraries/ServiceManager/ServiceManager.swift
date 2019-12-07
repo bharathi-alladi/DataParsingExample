@@ -23,4 +23,15 @@ class ServiceManager {
         let dataTask = urlSession.dataTask (with: urlRequest, completionHandler: returnBlock)
         dataTask.resume()
     }
+    
+    func getDetails (_ url:String, onSuccess returnBlock:@escaping ((Data?, URLResponse?, Error?) -> Void)) {
+        
+        let urlRequest = URLRequest.init(url: URL.init(string: url)!)
+        
+        let defaultConfiq = URLSessionConfiguration.default
+        let urlSession = URLSession.init(configuration : defaultConfiq)
+        
+        let dataTask = urlSession.dataTask (with: urlRequest, completionHandler: returnBlock)
+        dataTask.resume()
+    }
 }

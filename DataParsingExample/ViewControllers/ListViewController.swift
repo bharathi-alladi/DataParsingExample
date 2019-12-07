@@ -13,6 +13,8 @@ class ListViewController: UIViewController , UITableViewDataSource, UITableViewD
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var data_tableView : UITableView!
     
+   
+    
     var viewModel: ListViewModel!
     
     // MARK: - init and viewDidLoad functions
@@ -73,6 +75,20 @@ class ListViewController: UIViewController , UITableViewDataSource, UITableViewD
         
         return cell
     }
+    
+    
+    // MARK: - tableview delegate functions
+    // (This function selects the cell and also deselectes it)
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
+        let vcObj:DetailViewController = storyBoard.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+        vcObj.data = self.viewModel.getContact(index: indexPath.row)
+        self.navigationController?.pushViewController(vcObj, animated: true)
+    }
+    
 }
 
 

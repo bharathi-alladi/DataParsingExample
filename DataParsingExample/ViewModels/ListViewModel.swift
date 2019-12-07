@@ -40,6 +40,7 @@ class ListViewModel {
         serviceManager.getContactList(onSuccess: self.completionHandler!)
     }
     
+    
     func getRowCount() -> Int {
         return fetchedData.count
     }
