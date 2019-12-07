@@ -10,6 +10,8 @@ import UIKit
 
 class DetailViewController: UIViewController  {
     
+    
+    
     @IBOutlet var dataView : UIView!
     @IBOutlet var activityIndicator : UIActivityIndicatorView!
     
@@ -66,11 +68,19 @@ class DetailViewController: UIViewController  {
                 }
             }
             else {
+                DispatchQueue.main.async(execute: {() -> Void in
+                    let alertController = UIAlertController.init(title: "Error", message: error?.localizedDescription ?? "Unknown Error", preferredStyle: .alert)
+                    let alertAction = UIAlertAction.init(title: "ok", style: .default, handler: nil)
+                    alertController.addAction(alertAction)
+                    self.present(alertController, animated: true, completion: nil)
+                })
                 // when there is a network error in fetching data
                 // you will come here..!!
                 
-            }
+                }
         })
+        
+        
         
     }
     
