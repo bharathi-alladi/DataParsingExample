@@ -13,17 +13,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
  
-        let viewModel = ListViewModel.init()
-        let intialView = ListViewController.initWithViewModel(viewModel)
-        
-        let navigationController = UINavigationController.init(rootViewController: intialView)
-        
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = navigationController
-        window?.makeKeyAndVisible()
+        Router.sharedInstance.appLaunch(window!)
         return true
     }
     

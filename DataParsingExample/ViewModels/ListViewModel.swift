@@ -49,4 +49,10 @@ class ListViewModel {
         
         return fetchedData[index]
     }
+
+    func rowSelected(_ index:Int) {
+        
+        let contact = fetchedData[index]
+        Router.sharedInstance.routeToDetailView(contact)
+    }
 }

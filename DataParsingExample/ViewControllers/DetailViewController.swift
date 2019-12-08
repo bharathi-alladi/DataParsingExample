@@ -29,6 +29,16 @@ class DetailViewController: UIViewController  {
     
     var data : CoreDataModel!
     var detailData : DetailDataModel!
+    var viewModel: DetailViewModel!
+    
+    class func initWithViewModel(_ viewModel: DetailViewModel) -> DetailViewController {
+        
+        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
+        let vcObj = storyBoard.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+        vcObj.viewModel = viewModel
+        vcObj.viewModel.viewController = vcObj
+        return vcObj
+    }
     
     override func viewDidLoad() {
         
