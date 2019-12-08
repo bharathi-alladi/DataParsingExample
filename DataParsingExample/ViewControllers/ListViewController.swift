@@ -54,7 +54,6 @@ class ListViewController: UIViewController , UITableViewDataSource, UITableViewD
         })
     }
     
- 
     // MARK: - tableview datasource functions
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -73,10 +72,6 @@ class ListViewController: UIViewController , UITableViewDataSource, UITableViewD
         
         return cell
     }
-    
-    
-    // MARK: - tableview delegate functions
-    // (This function selects the cell and also deselectes it)
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         

@@ -10,11 +10,8 @@ import UIKit
 
 class DetailViewController: UIViewController  {
     
-    
-    
     @IBOutlet var dataView : UIView!
     @IBOutlet var activityIndicator : UIActivityIndicatorView!
-    
     @IBOutlet var idLbl : UILabel!
     @IBOutlet var firstNameLabel: UILabel!
     @IBOutlet var lastNameLabel: UILabel!
@@ -27,8 +24,7 @@ class DetailViewController: UIViewController  {
     @IBOutlet var createLbl :UILabel!
     @IBOutlet var updateLbl :UILabel!
     
-    var data : CoreDataModel!
-    var detailData : DetailDataModel!
+    
     var viewModel: DetailViewModel!
     
     class func initWithViewModel(_ viewModel: DetailViewModel) -> DetailViewController {
@@ -43,56 +39,41 @@ class DetailViewController: UIViewController  {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-        self.idLbl.text = String(self.data.id)
-        self.firstNameLabel.text = self.data.first_name
-        self.lastNameLabel.text = self.data.last_name
-        self.profilePicLbl.text = String(self.data.profile_pic)
-        self.favouriteLbl.text = String(self.data.favorite)
-        self.urlLink.text = String(self.data.url)
-        
-        
-        
         self.activityIndicator.startAnimating()
-        
-        ServiceManager.init().getDetails(self.data.url, onSuccess: {
-            (data, urlresponse, error) in
-            
-            DispatchQueue.main.async(execute: {() -> Void in
-                self.activityIndicator.stopAnimating()
-            })
-            if data != nil {
-                let decoder = JSONDecoder.init()
-                do {
-                    self.detailData =  try decoder.decode(DetailDataModel.self, from: data!)
-                    
-                    // your data is parsed and ready here...!!
-                    DispatchQueue.main.async(execute: {() -> Void in
-                        self.emailLabl.text = self.detailData.email
-                        self.phoneNumber.text = self.detailData.phone_number
-                        self.createLbl.text = self.detailData.created_at
-                        self.updateLbl.text = self.detailData.updated_at
-                    })
-                } catch {
-                    print(error.localizedDescription)
-                }
-            }
-            else {
-                DispatchQueue.main.async(execute: {() -> Void in
-                    let alertController = UIAlertController.init(title: "Error", message: error?.localizedDescription ?? "Unknown Error", preferredStyle: .alert)
-                    let alertAction = UIAlertAction.init(title: "ok", style: .default, handler: nil)
-                    alertController.addAction(alertAction)
-                    self.present(alertController, animated: true, completion: nil)
-                })
-                // when there is a network error in fetching data
-                // you will come here..!!
-                
-                }
-        })
-        
-        
-        
+        self.viewModel.fetchDetails()
     }
     
-
+    func populateIntialView(_ contact : CoreDataModel){
+        self.idLbl.text = String(contact.id)
+        self.firstNameLabel.text = contact.first_name
+        self.lastNameLabel.text = contact.last_name
+        self.profilePicLbl.text = String(contact.profile_pic)
+        self.favouriteLbl.text = String(contact.favorite)
+        self.urlLink.text = String(contact.url)
+    }
+    
+    func populateOnSuccessView(_ detailData : DetailDataModel) {
+        
+        DispatchQueue.main.async(execute: {() -> Void in
+            self.activityIndicator.stopAnimating()
+            self.emailLabl.text = detailData.email
+            self.phoneNumber.text = detailData.phone_number
+            self.createLbl.text = detailData.created_at
+            self.updateLbl.text = detailData.updated_at
+        })
+    }
+    
+    func displayAlert(with error:Error?)  {
+        // show an alert here
+        DispatchQueue.main.async(execute: {() -> Void in
+            let alertController = UIAlertController.init(title: "Error", message: error?.localizedDescription ?? "Unknown Error", preferredStyle: .alert)
+            let alertAction = UIAlertAction.init(title: "ok", style: .default, handler: nil)
+            alertController.addAction(alertAction)
+            self.present(alertController, animated: true, completion: nil)
+        })
+    }
+    
 }
+
+
+

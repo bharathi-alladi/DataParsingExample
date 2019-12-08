@@ -9,38 +9,33 @@
 import UIKit
 
 class ListViewModel {
-
-    var completionHandler : ((Data?,URLResponse?,Error?) -> Void )?
-    var fetchedData : [CoreDataModel] = []
     
+    var fetchedData : [CoreDataModel] = []
     var viewController : ListViewController?
     
+    // MARK: - initiliazer
     init() {
-        self.completionHandler = {
-            (data : Data?, urlresponse : URLResponse?, error : Error? ) -> Void in
+        
+    }
+    
+    // MARK: - Service Call
+    func fetchData() {
+        let serviceManager = ServiceManager.init()
+        serviceManager.getContactList(onSuccess: {
+            (fetchedData, error) in
             
-            if data != nil {
-                let decoder = JSONDecoder.init()
-                do {
-                    self.fetchedData =  try decoder.decode([CoreDataModel].self, from: data!)
-                } catch {
-                    print(error.localizedDescription)
-                    
-                }
+            if fetchedData != nil {
+                self.fetchedData = fetchedData!
                 self.viewController?.reloadTableView()
             }
             else {
-                self.viewController?.displayAlert(with: error)// shows error when internet is turned off.
+                self.viewController?.displayAlert(with: error)
             }
-        }
-    }
-    
-    func fetchData() {
-        let serviceManager = ServiceManager.init()
-        serviceManager.getContactList(onSuccess: self.completionHandler!)
+        })
     }
     
     
+    // MARK: - ViewController's helper functions
     func getRowCount() -> Int {
         return fetchedData.count
     }
@@ -49,7 +44,8 @@ class ListViewModel {
         
         return fetchedData[index]
     }
-
+    
+    // MARK: - Route to other state
     func rowSelected(_ index:Int) {
         
         let contact = fetchedData[index]

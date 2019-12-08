@@ -9,7 +9,7 @@
 import UIKit
 
 class Router {
-
+    
     static var sharedInstance = Router()
     
     var rootNavigationController : UINavigationController?
@@ -28,11 +28,10 @@ class Router {
     
     func routeToDetailView(_ contact : CoreDataModel) {
         
-        let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
+        let viewModel = DetailViewModel.init(contact)
+        let detailView = DetailViewController.initWithViewModel(viewModel)
         
-        let vcObj:DetailViewController = storyBoard.instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
-        vcObj.data = contact
-        rootNavigationController?.pushViewController(vcObj, animated: true)
+        rootNavigationController?.pushViewController(detailView, animated: true)
     }
     
 }
