@@ -34,4 +34,21 @@ class DetailViewModel {
         })
     }
     
+    func getFirstName() -> String {
+        
+        return data.first_name
+    }
+    
+    
+    func getFullName() -> String {
+        
+        let fullName =  data.first_name + " " + data.last_name
+        return fullName
+    }
+    
+    
+    func routeToEditView() {
+        Router.sharedInstance.routeToEditView(detailData)
+    }
+    
 }

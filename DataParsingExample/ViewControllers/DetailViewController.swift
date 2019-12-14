@@ -24,6 +24,8 @@ class DetailViewController: UIViewController  {
     @IBOutlet var createLbl :UILabel!
     @IBOutlet var updateLbl :UILabel!
     
+    @IBOutlet var fullname : UILabel!
+    
     
     var viewModel: DetailViewModel!
     
@@ -39,8 +41,10 @@ class DetailViewController: UIViewController  {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        self.title = self.viewModel.getFirstName()
         self.activityIndicator.startAnimating()
         self.viewModel.fetchDetails()
+        self.fullname.text = self.viewModel.getFullName()
     }
     
     func populateIntialView(_ contact : CoreDataModel){
@@ -50,6 +54,7 @@ class DetailViewController: UIViewController  {
         self.profilePicLbl.text = String(contact.profile_pic)
         self.favouriteLbl.text = String(contact.favorite)
         self.urlLink.text = String(contact.url)
+        
     }
     
     func populateOnSuccessView(_ detailData : DetailDataModel) {
@@ -60,8 +65,13 @@ class DetailViewController: UIViewController  {
             self.phoneNumber.text = detailData.phone_number
             self.createLbl.text = detailData.created_at
             self.updateLbl.text = detailData.updated_at
+            
+            let rightBarButton = UIBarButtonItem.init(title: "Edit", style: .plain, target: self, action: #selector(DetailViewController.rightBarButtonAction))
+            self.navigationItem.rightBarButtonItem = rightBarButton
+            
         })
     }
+    
     
     func displayAlert(with error:Error?)  {
         // show an alert here
@@ -73,6 +83,9 @@ class DetailViewController: UIViewController  {
         })
     }
     
+    @objc func rightBarButtonAction() {
+        self.viewModel.routeToEditView()
+    }
 }
 
 
