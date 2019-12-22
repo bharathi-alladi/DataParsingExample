@@ -10,7 +10,13 @@ import UIKit
 
 class EditTableViewCell: UITableViewCell {
 
-    @IBOutlet var Lable : UILabel!
+    @IBOutlet var lable : UILabel!
     @IBOutlet var textField : UITextField!
-
+    
+    var parentView : EditViewController!
+    
+    func configureTextfielddelegate() {
+        
+        self.textField.delegate = parentView
+    }
 }

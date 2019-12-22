@@ -27,20 +27,20 @@ class EditViewModel {
             returnArray.append((details?.first_name)!)
             break
         case 1:
-            
             returnArray.append("Last Name :")
             returnArray.append((details?.last_name)!)
             break
         case 2:
             returnArray.append("Phone Number :")
-            returnArray.append((details?.phone_number)!)
+            returnArray.append((details?.phone_number) ?? "")
             break
         default:
             returnArray.append("Email :")
-            returnArray.append((details?.email)!)
+            returnArray.append((details?.email) ?? "")
             break
         }
         
         return returnArray
     }
+    
 }
