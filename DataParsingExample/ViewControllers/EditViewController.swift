@@ -64,9 +64,42 @@ class EditViewController: UIViewController {
         }
     }
     
+    @objc func doneButtonAction() {
+        
+        self.textField_ref?.resignFirstResponder()
+        self.viewModel.done()
+    }
+    
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         
         textField_ref?.resignFirstResponder()
+        self.viewModel.done()
+    }
+    
+    func showAlert(_ title : String , message : String ){
+        
+        DispatchQueue.main.async {
+            let alertController = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
+            let alertAction = UIAlertAction.init(title: "ok", style: .default, handler: nil)
+            alertController.addAction(alertAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    func showAlertOnSuccess(_ title : String , message : String ){
+        
+        DispatchQueue.main.async {
+            let alertController = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
+            let alertAction = UIAlertAction.init(title: "ok", style: .default, handler: {
+                (alertAction) in
+                // dismiss this view an dmove to previous view
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true, completion: nil)
+                }
+            })
+            alertController.addAction(alertAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
 }
 
@@ -88,6 +121,10 @@ extension EditViewController : UITableViewDataSource {
         cell.textField.tag = indexPath.row
         cell.parentView = self
         cell.configureTextfielddelegate()
+        
+        
+        let rightBarButton = UIBarButtonItem.init(title: "Done", style: .plain, target: self, action: #selector(EditViewController.doneButtonAction))
+        self.navigationItem.rightBarButtonItem = rightBarButton
         
         if indexPath.row == 2 {
             cell.textField.keyboardType = .numberPad
@@ -142,7 +179,7 @@ extension EditViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         
+        self.viewModel.update(textField.text, rowNumber: textField.tag)
         self.textField_ref = nil
     }
 }
-

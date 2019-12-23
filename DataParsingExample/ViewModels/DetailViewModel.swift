@@ -21,7 +21,7 @@ class DetailViewModel {
     func fetchDetails() {
         self.viewController?.populateIntialView(data)
         let serviceManager = ServiceManager.init()
-        serviceManager.getDetails(self.data.url,onSuccess: {
+        serviceManager.getDetails(self.data.url, onSuccess: {
             (detailData, error) in
             
             if detailData != nil {
@@ -48,7 +48,7 @@ class DetailViewModel {
     
     
     func routeToEditView() {
-        Router.sharedInstance.routeToEditView(detailData)
+        Router.sharedInstance.routeToEditView(detailData, url: data.url)
     }
     
 }

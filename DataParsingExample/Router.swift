@@ -34,8 +34,8 @@ class Router {
         rootNavigationController?.pushViewController(detailView, animated: true)
     }
     
-    func routeToEditView(_ details : DetailDataModel) {
-        let viewModel = EditViewModel.init(details)
+    func routeToEditView(_ details : DetailDataModel, url : String ) {
+        let viewModel = EditViewModel.init(details, url: url)
         let editView = EditViewController.initWithViewModel(viewModel)
         
         rootNavigationController?.pushViewController(editView, animated: true)
